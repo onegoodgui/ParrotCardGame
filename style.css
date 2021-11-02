@@ -1,0 +1,53 @@
+
+*{
+    box-sizing: border-box;
+    font-family: 'Roboto', sans-serif;
+}
+body{
+    background-color: #EEF9BF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+header{
+    margin-top: 40px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin-bottom: 47px;
+}
+
+header h1{
+    color: #75B79E;
+    font-family: Roboto;
+    font-style: normal;
+    font-weight: bold;
+    font-size: 56px;
+}
+
+.baralho{
+    max-width: 872px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    flex-wrap: wrap;
+}
+
+.baralho .carta{
+    background-color: #A7E9AF;
+    background-image: url("Imagens/front 1.png");
+    background-origin: content-box;
+    background-repeat: no-repeat;
+    height: 146px;
+    width: 117px;
+    border: 1px solid #99CEA8;
+    border-radius: 5px;
+    margin-bottom: 34px;
+    margin-left: 34px;
+    padding: 24px 10px 22px 7px;
+}
+
+.baralho .carta:first-child{
+    margin-left: 0px;
+}
