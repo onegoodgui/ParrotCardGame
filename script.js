@@ -1,12 +1,20 @@
-const numeroDeCartas = prompt("Qual o numero de cartas?")
 let contador = 0;
 let array = [];
 let tempo = null;
 let cardsVirados = null;
 let numeroDeCardsVirados = null;
 let indice_das_cartas = [];
+let imgArray = [];
+let img_indice = [1,2,3,4,5,6,7];
+let jogadas = null;
+let finalizado = 0;
 let baralho = document.querySelector(".baralho");
 
+const numeroDeCartas = prompt("Qual o número de cartas?");
+if(numeroDeCartas<4 || numeroDeCartas>14 || numeroDeCartas%2 == 1){
+    alert("Número inválido.");
+    numerodeCartas = prompt("Qual o número de cartas?");
+}
 // Esta função pode ficar separada do código acima, onde você preferir
 function comparador() { 
 	return Math.random() - 0.5; 
@@ -39,18 +47,29 @@ while (contador < numeroDeCartas/2){
     array.push(contador+1);
     array.push(contador+1);
     contador = contador + 1;
-    // console.log(array);
 }
 
 // Após esta linha, o vetor 'array' estará embaralhado
 array.sort(comparador);
+// Embaralho o array de indices das Imagens
+img_indice.sort(comparador);
+
+// Inserindo as imagens no array de acordo com os índices aleatorizados de 'img_indice'
+imgArray[img_indice[0]] = 'bobrossparrot.gif';
+imgArray[img_indice[1]] = 'explodyparrot.gif';
+imgArray[img_indice[2]] = 'fiestaparrot.gif';
+imgArray[img_indice[3]] = 'metalparrot.gif';
+imgArray[img_indice[4]] = 'revertitparrot.gif';
+imgArray[img_indice[5]] = 'tripletsparrot.gif';
+imgArray[img_indice[6]] = 'unicornparrot.gif';
+
 
 // Atribuindo imagens para o verso das cartas de acordo com a lista de numeros do vetor 'array'
 contador = 0;
 let versoDaCarta = document.querySelectorAll(".back-face");
 console.log(versoDaCarta);
  while(contador < numeroDeCartas){
-     versoDaCarta[contador].style.backgroundImage = `url("Imagens/Sapinho${array[contador]}.jpg")`;
+     versoDaCarta[contador].style.backgroundImage = `url("Imagens/${imgArray[array[contador]]}")`;
      contador = contador+1;
  }
 
@@ -58,6 +77,7 @@ console.log(versoDaCarta);
 
 // Função que vira a carta clicada abaixo!
 function virarCarta(carta){
+    jogadas = jogadas + 1;
     // Achando o índice da carta selecionada
     
     for(let i=0; i<deck.length;i++ ){
@@ -87,39 +107,63 @@ function virarCarta(carta){
     }
     cardsVirados = document.querySelectorAll(".virado");
     numeroDeCardsVirados = cardsVirados.length;
+
+    
     if(numeroDeCardsVirados == 2){
-        tempo = setTimeout(verificarPar,1000);
-    }
-}
-    
-    
-    function verificarPar(){
-        
         if(indice_das_cartas[0] == indice_das_cartas[1]){
-            cardsVirados[0].classList.remove("virado");
-            cardsVirados[1].classList.remove("virado");
-            indice_das_cartas = [];
+            manterCartas();
+            if(finalizado === deck.length){
+                setTimeout(fimDeJogo,500);
+            }
         }
         else{
-
-            // console.log(cardsVirados);
-            // console.log(numeroDeCardsVirados);
-    
-        
-                cardsVirados[0].querySelector(".back-face").style.transform = "rotateY(180deg)";
-                cardsVirados[0].querySelector(".front-face").style.transform = "rotateY(0deg)";
-                cardsVirados[1].querySelector(".back-face").style.transform = "rotateY(180deg)";
-                cardsVirados[1].querySelector(".front-face").style.transform = "rotateY(0deg)";
-                cardsVirados[0].classList.remove("virado");
-                cardsVirados[1].classList.remove("virado");
-                cardsVirados[0].querySelector(".back-face").style.transform = null;
-                cardsVirados[0].querySelector(".front-face").style.transform = null;
-                cardsVirados[1].querySelector(".back-face").style.transform = null;
-                cardsVirados[1].querySelector(".front-face").style.transform = null;
-                indice_das_cartas = [];
-                // cardsVirados[0].classList.remove("virado");
+            tempo = setTimeout(virarCartas,1000);
         }
-            // cardsVirados[1].classList.remove("virado");
+        
     }
+
+}
+    
+        function manterCartas(){
+            
+            cardsVirados[0].classList.remove("virado");
+            cardsVirados[1].classList.remove("virado");
+            cardsVirados[0].onclick = null;
+            cardsVirados[1].onclick = null;
+            indice_das_cartas = [];
+    
+            // Verifica se todas as cartas são clicáveis
+            
+            finalizado = 0;
+            for( i=0; i< deck.length ;i++){
+                if(deck[i].onclick === null){
+                    finalizado = finalizado + 1;
+                }
+            }       
+        }
+        
+            
+        
+        function virarCartas(){
+
+            cardsVirados[0].querySelector(".back-face").style.transform = "rotateY(180deg)";
+            cardsVirados[0].querySelector(".front-face").style.transform = "rotateY(0deg)";
+            cardsVirados[1].querySelector(".back-face").style.transform = "rotateY(180deg)";
+            cardsVirados[1].querySelector(".front-face").style.transform = "rotateY(0deg)";
+            cardsVirados[0].classList.remove("virado");
+            cardsVirados[1].classList.remove("virado");
+            cardsVirados[0].querySelector(".back-face").style.transform = null;
+            cardsVirados[0].querySelector(".front-face").style.transform = null;
+            cardsVirados[1].querySelector(".back-face").style.transform = null;
+            cardsVirados[1].querySelector(".front-face").style.transform = null;
+            indice_das_cartas = [];
+                
+        }
+
+        function fimDeJogo(){
+            alert(`Fim de jogo! Você ganhou em ${jogadas} jogadas!`);
+        }
+            
+    
 
 
