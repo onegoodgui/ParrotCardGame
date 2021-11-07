@@ -161,6 +161,10 @@ function virarCartas(){
 function fimDeJogo(){
     alert(`Fim de jogo! Você ganhou em ${jogadas} jogadas e em ${tempoTotal} segundos!`);
     clearInterval(meuIntervalo);
+    const resposta = prompt("Jogar de novo? Digite 'Sim' ou 'Não'");
+    if(resposta === 'Sim' || resposta === 'sim'){
+        window.location.reload(false);
+    }
 }
 
 let segundosNumeral = 0;
