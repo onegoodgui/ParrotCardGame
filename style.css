@@ -8,6 +8,7 @@ body{
     display: flex;
     flex-direction: column;
     align-items: center;
+    position: relative;
 }
 
 header{
@@ -16,6 +17,7 @@ header{
     justify-content: center;
     align-items: center;
     margin-bottom: 47px;
+    text-align: center;
 }
 
 header h1{
@@ -27,11 +29,14 @@ header h1{
 }
 
 .baralho{
-    max-width: 872px;
+    max-width: 906px;
     display: flex;
     justify-content: center;
     align-items: center;
     flex-wrap: wrap;
+    margin-left: auto;
+    margin-right: auto;
+    text-align: left;
 }
 
 .baralho .card{
@@ -40,14 +45,15 @@ header h1{
     width: 117px;
     border-radius: 5px;
     margin-bottom: 34px;
-    margin-left: 34px;
+    margin-right: 17px;
+    margin-left: 17px;
 
     position: relative;
 }
 
-.baralho .card:first-child{
+/* .baralho .card:first-child{
     margin-left: 0px;
-}
+} */
 
 .face {
     background-color: #A7E9AF;
@@ -82,10 +88,54 @@ header h1{
     padding: 0px;
   }
 
-  /* .card:hover .back-face {
-    transform: rotateY(0deg);
+  .relogio{
+      background-color: forestgreen;
+      width: 100px;
+      height: 50px;
+      position: absolute;
+      right: 10px;
+      top: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      border: 5px solid gold;
+      border-radius: 25px;
+
   }
 
-  .card:hover .front-face {
-    transform: rotateY(-180deg);
-  } */
+  .relogio p{
+      color: palegoldenrod;
+      font-size: 24px;
+      
+  }
+
+@media (max-width: 800px){
+    .relogio{
+        display: none;
+    }
+
+}
+  @media (max-width: 335px){
+      body{
+          flex-direction: column;
+      }
+
+      header{
+          width: 312px;
+          height: 63px;
+          flex-wrap: wrap;
+      }
+
+      header h1{
+        font-size: 36px;
+    }
+
+      .baralho{
+          flex-direction: column;
+      }
+
+      .baralho .card{
+          margin-left: 0px;
+      }
+
+  }

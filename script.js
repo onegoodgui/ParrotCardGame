@@ -35,11 +35,6 @@ while(contador < numeroDeCartas){
 let deck = document.querySelectorAll(".card"); // array com todas as cartas
 console.log(deck);
 
-// Se o número de cartas passar de 6, fazer a primeira carta da segunda linha ter marginLeft nula
-if(numeroDeCartas > 6){
-    let cartas = baralho.querySelectorAll(".card");
-    cartas[6].style.marginLeft = "0px";
-}
 
 // Zerando o contador + Criando array com duplas dos números de 1 até numeroDeCartas
 contador = 0;
@@ -78,7 +73,11 @@ console.log(versoDaCarta);
 // Função que vira a carta clicada abaixo!
 function virarCarta(carta){
     jogadas = jogadas + 1;
-    // Achando o índice da carta selecionada
+    
+    if(jogadas === 1){
+        iniciarCronometro = cronometro();
+    }
+    
     
     for(let i=0; i<deck.length;i++ ){
         console.log(i);
@@ -124,46 +123,83 @@ function virarCarta(carta){
 
 }
     
-        function manterCartas(){
+ function manterCartas(){
             
-            cardsVirados[0].classList.remove("virado");
-            cardsVirados[1].classList.remove("virado");
-            cardsVirados[0].onclick = null;
-            cardsVirados[1].onclick = null;
-            indice_das_cartas = [];
+    cardsVirados[0].classList.remove("virado");
+    cardsVirados[1].classList.remove("virado");
+    cardsVirados[0].onclick = null;
+    cardsVirados[1].onclick = null;
+    indice_das_cartas = [];
+    // Verifica se todas as cartas são clicáveis
     
-            // Verifica se todas as cartas são clicáveis
-            
-            finalizado = 0;
-            for( i=0; i< deck.length ;i++){
-                if(deck[i].onclick === null){
-                    finalizado = finalizado + 1;
-                }
-            }       
+    finalizado = 0;
+    for( i=0; i< deck.length ;i++){
+        if(deck[i].onclick === null){
+                finalizado = finalizado + 1;
         }
+    }       
+}
         
             
         
-        function virarCartas(){
+function virarCartas(){
 
-            cardsVirados[0].querySelector(".back-face").style.transform = "rotateY(180deg)";
-            cardsVirados[0].querySelector(".front-face").style.transform = "rotateY(0deg)";
-            cardsVirados[1].querySelector(".back-face").style.transform = "rotateY(180deg)";
-            cardsVirados[1].querySelector(".front-face").style.transform = "rotateY(0deg)";
-            cardsVirados[0].classList.remove("virado");
-            cardsVirados[1].classList.remove("virado");
-            cardsVirados[0].querySelector(".back-face").style.transform = null;
-            cardsVirados[0].querySelector(".front-face").style.transform = null;
-            cardsVirados[1].querySelector(".back-face").style.transform = null;
-            cardsVirados[1].querySelector(".front-face").style.transform = null;
-            indice_das_cartas = [];
+    cardsVirados[0].querySelector(".back-face").style.transform = "rotateY(180deg)";
+    cardsVirados[0].querySelector(".front-face").style.transform = "rotateY(0deg)";
+    cardsVirados[1].querySelector(".back-face").style.transform = "rotateY(180deg)";
+    cardsVirados[1].querySelector(".front-face").style.transform = "rotateY(0deg)";
+    cardsVirados[0].classList.remove("virado");
+    cardsVirados[1].classList.remove("virado");
+    cardsVirados[0].querySelector(".back-face").style.transform = null;
+    cardsVirados[0].querySelector(".front-face").style.transform = null;
+    cardsVirados[1].querySelector(".back-face").style.transform = null;
+    cardsVirados[1].querySelector(".front-face").style.transform = null;
+    indice_das_cartas = [];
                 
+}
+
+function fimDeJogo(){
+    alert(`Fim de jogo! Você ganhou em ${jogadas} jogadas e em ${tempoTotal} segundos!`);
+    clearInterval(meuIntervalo);
+}
+
+let segundosNumeral = 0;
+let segundosDecimal = 0;
+let minutosNumeral = 0;
+let minutosDecimal = 0;
+let tempoTotal = 0;
+let meuIntervalo = null;
+
+function cronometro(){
+
+    let tempo = document.querySelector(".relogio");
+    meuIntervalo = setInterval(adicionar,1000);
+    
+    function adicionar(){
+        tempoTotal++;
+
+        if(segundosNumeral < 9){
+            segundosNumeral ++;
+        }
+        else if(segundosDecimal < 5){
+            segundosNumeral = 0;
+            segundosDecimal ++
+        }
+        else if(minutosNumeral <9){
+            segundosNumeral = 0;
+            segundosDecimal = 0;
+            minutosNumeral ++;
+        }
+        else if(minutosDecimal <9){
+            segundosNumeral = 0;
+            segundosDecimal = 0;
+            minutosNumeral = 0;
+            minutosDecimal ++;
         }
 
-        function fimDeJogo(){
-            alert(`Fim de jogo! Você ganhou em ${jogadas} jogadas!`);
-        }
-            
+        tempo.innerHTML = `<p>${minutosDecimal}${minutosNumeral}:${segundosDecimal}${segundosNumeral}</p>`;
+    }
     
 
+}   
 
