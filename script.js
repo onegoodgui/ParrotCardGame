@@ -23,10 +23,10 @@ function comparador() {
 // Adicionando o número de cartas fornecido pelo usuário
 while(contador < numeroDeCartas){
     baralho.innerHTML = baralho.innerHTML + `
-    <div class="card" onclick="virarCarta(this)">
-        <div class="front-face face">
+    <div class="card" data-identifier="card" onclick="virarCarta(this)">
+        <div class="front-face face" data-identifier="back-face">
         </div>
-        <div class="back-face face">
+        <div class="back-face face" data-identifier="front-face">
         </div>
   </div> `;
     contador = contador + 1;
