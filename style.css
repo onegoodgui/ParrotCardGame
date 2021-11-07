@@ -51,10 +51,6 @@ header h1{
     position: relative;
 }
 
-/* .baralho .card:first-child{
-    margin-left: 0px;
-} */
-
 .face {
     background-color: #A7E9AF;
     background-image: url("Imagens/front 1.png");
