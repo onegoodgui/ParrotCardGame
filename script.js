@@ -72,73 +72,89 @@ console.log(versoDaCarta);
 
 // Função que vira a carta clicada abaixo!
 function virarCarta(carta){
-    jogadas = jogadas + 1;
-    
-    if(jogadas === 1){
-        iniciarCronometro = cronometro();
-    }
-    
-    
-    for(let i=0; i<deck.length;i++ ){
-        console.log(i);
-        if(carta === deck[i]){
-            indice_das_cartas.push(array[i]);
-        }
-    }
 
-    console.log(indice_das_cartas);
-
-    // console.log(carta);
-    let frontface = carta.querySelector(".front-face");
-    let backface = carta.querySelector(".back-face");
-    console.log(frontface.style.transform);
-
-    if(frontface.style.transform === ""){
-
-        frontface.style.transform = "rotateY(-180deg)"
-        backface.style.transform = "rotateY(0deg)"
-        carta.classList.add("virado");
+    if(numeroDeCardsVirados === 2){
+        return
     }
     else{
-        frontface.style.transform = ""
-        backface.style.transform = ""
-        carta.classList.remove("virado");
-    }
-    cardsVirados = document.querySelectorAll(".virado");
-    numeroDeCardsVirados = cardsVirados.length;
-
-    
-    if(numeroDeCardsVirados == 2){
-        if(indice_das_cartas[0] == indice_das_cartas[1]){
-            manterCartas();
-            if(finalizado === deck.length){
-                setTimeout(fimDeJogo,500);
-            }
-        }
-        else{
-            tempo = setTimeout(virarCartas,1000);
+        
+        jogadas = jogadas + 1;
+        
+        if(jogadas === 1){
+            iniciarCronometro = cronometro();
         }
         
+        
+        for(let i=0; i<deck.length;i++ ){
+            console.log(i);
+            if(carta === deck[i]){
+                indice_das_cartas.push(array[i]);
+            }
+        }
+    
+        console.log(indice_das_cartas);
+        if(carta.classList.contains("virado")){
+            return
+        }
+        else{
+
+            let frontface = carta.querySelector(".front-face");
+            let backface = carta.querySelector(".back-face");
+            console.log(frontface.style.transform);
+        
+            if(frontface.style.transform === ""){
+        
+                frontface.style.transform = "rotateY(-180deg)"
+                backface.style.transform = "rotateY(0deg)"
+                carta.classList.add("virado");
+            }
+            else{
+                frontface.style.transform = ""
+                backface.style.transform = ""
+                carta.classList.remove("virado");
+            }
+        }
+        // console.log(carta);
+        cardsVirados = document.querySelectorAll(".virado");
+        numeroDeCardsVirados = cardsVirados.length;
+    
+        
+        if(numeroDeCardsVirados == 2){
+            if(indice_das_cartas[0] == indice_das_cartas[1]){
+                manterCartas();
+    
+                if(finalizado === deck.length){
+                    setTimeout(fimDeJogo,500);
+                }
+            }
+            else{
+                tempo = setTimeout(virarCartas,1000);
+                
+            }
+            
+        }
+    
+    }
+}
+        
+     function manterCartas(){
+    
+        cardsVirados[0].classList.remove("virado");
+        cardsVirados[1].classList.remove("virado");
+        cardsVirados[0].onclick = null;
+        cardsVirados[1].onclick = null;
+        indice_das_cartas = [];
+        numeroDeCardsVirados = 0;
+        // Verifica se todas as cartas são clicáveis
+        
+        finalizado = 0;
+        for( i=0; i< deck.length ;i++){
+            if(deck[i].onclick === null){
+                    finalizado = finalizado + 1;
+            }
+        }       
     }
 
-}
-    
- function manterCartas(){
-            
-    cardsVirados[0].classList.remove("virado");
-    cardsVirados[1].classList.remove("virado");
-    cardsVirados[0].onclick = null;
-    cardsVirados[1].onclick = null;
-    indice_das_cartas = [];
-    // Verifica se todas as cartas são clicáveis
-    
-    finalizado = 0;
-    for( i=0; i< deck.length ;i++){
-        if(deck[i].onclick === null){
-                finalizado = finalizado + 1;
-        }
-    }       
-}
         
             
         
@@ -155,6 +171,7 @@ function virarCartas(){
     cardsVirados[1].querySelector(".back-face").style.transform = null;
     cardsVirados[1].querySelector(".front-face").style.transform = null;
     indice_das_cartas = [];
+    numeroDeCardsVirados = 0;
                 
 }
 
